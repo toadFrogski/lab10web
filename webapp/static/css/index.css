@@ -1,0 +1,22 @@
+header ul {
+    list-style: none;
+}
+
+header ul li {
+    text-align: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    margin-inline: auto;
+    width: 100%;
+    transition: all 0.2s linear;
+}
+
+header ul li:hover {
+    background-color: yellow;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
