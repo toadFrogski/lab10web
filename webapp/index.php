@@ -16,9 +16,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] = 'manager') {
         case '/children':
             require __DIR__ . '/views/children.php';
             break;
-        case '/record':
-            require __DIR__ . '/forms/record.php';
-            break;
         case '/logout':
             require __DIR__ . '/controllers/logout.php';
             break;
@@ -34,6 +31,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] = 'manager') {
             break;
         case '/login':
             require __DIR__ . '/forms/login.php';
+            break;
+        case '/record':
+            require __DIR__ . '/forms/record.php';
             break;
         default:
             $_SERVER['REQUEST_URI'] = '';
