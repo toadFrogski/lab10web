@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+header ul li a {
+    padding: 20px;
+    display: block;
+    text-decoration: none;
+    color: black;
+    transition: all 0.2s linear;
+}
+
+header ul li a:hover {
+    background-color: #f2f762;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.modal-banner {
+    padding-block: 24px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+}
+
+.muted {
+    backdrop-filter: blur(1rem);
+}

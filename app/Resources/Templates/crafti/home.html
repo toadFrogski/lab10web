@@ -1,0 +1,26 @@
+{% extends base.html %}
+
+{% block content %}
+{% include header_user.html %}
+<section class="mx-auto w-75 mt-5 bg-light">
+    <h2 class="w-100 text-center py-3">События</h2>
+    <div class="d-flex justify-content-around">
+        <p class="w-25 text-center"><b>Событие</b></p>
+        <p class="w-25 text-center"><b>Локация</b></p>
+        <p class="w-25 text-center"><b>Цена</b></p>
+        <p class="w-25 text-center"><b>Связаться</b></p>
+        <p class="w-25 text-center"><b>Записаться</b></p>
+    </div>
+
+    {% foreach($events as $event): %}
+    <div class="d-flex justify-content-around">
+        <p class="w-25 text-center">{{ $event[0] }}</p>
+        <p class="w-25 text-center">{{ $event[1] }}</p>
+        <p class="w-25 text-center">{{ $event[2] }}</p>
+        <p class="w-25 text-center">{{ $event[3] }}</p>
+        <span class="w-25 text-center"><a href="/record?eid={{ $event[4] }}"><img
+                    src="../app/Resources/static/assets/record.svg" alt=""></a></span>
+    </div>
+    {% endforeach; %}
+</section>
+{% endblock %}
