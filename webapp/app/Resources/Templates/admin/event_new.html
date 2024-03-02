@@ -11,7 +11,7 @@
             <label for="manager" class="form-label">Менеджер</label>
             <select name="manager" class="form-select">
                 {% foreach($managers as $manager): %}
-                <option value="{{ $manager[0] }}">{{ $manager[1] }}</option>
+                <option value="{{ $manager[0] }}">{{ $manager[2] }}</option>
                 {% endforeach %}
             </select>
         </div>

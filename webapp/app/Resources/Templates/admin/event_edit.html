@@ -16,7 +16,7 @@
                 </option>
                 {% $managers = array_filter($managers, fn($manager) => $manager[0] != $event['manager_id']); %}
                 {% foreach($managers as $manager): %}
-                    <option value="{{ $manager[0] }}">{{ $manager[1] }}</option>
+                    <option value="{{ $manager[0] }}">{{ $manager[2] }}</option>
                 {% endforeach %}
             </select>
         </div>

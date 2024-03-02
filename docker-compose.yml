@@ -15,8 +15,8 @@ services:
       - static_dir:/var/www/static
 
   webapp:
-    image: lab/webapp
     restart: unless-stopped
+    image: lab/webapp
     build:
       context: ./webapp
       dockerfile: ../docker/webapp/Dockerfile

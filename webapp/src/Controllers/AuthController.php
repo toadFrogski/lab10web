@@ -5,6 +5,9 @@ namespace Src\Controllers;
 use Core\HttpFoundation\Request;
 use Core\Template\Template;
 use Core\DBManager\DatabaseManager;
+use Error;
+use Exception;
+use Src\Repository\UserRepository;
 
 class AuthController
 {
@@ -15,15 +18,29 @@ class AuthController
 
     public function loginPostAction(Request $request)
     {
-        $dbm = DatabaseManager::getInstance();
-        $query = "SELECT * from manager";
-        $managers = $dbm->connection->query($query)->fetch_all();
-        if (
-            in_array($request->getParameters()['email'], array_column($managers, 1))
-            && in_array(md5($request->getParameters()['password']), array_column($managers, 2))
-        ) {
-            $_SESSION['role'] = 'manager';
+        global $router;
+        $data = $request->getParameters();
+        $user = UserRepository::getUserByEmail($data['email']);
+        if (hash('sha256', $data['password']) == $user['password']) {
+            $_SESSION['role'] = $user['role'];
+            $router->redirect('home');
         }
-        header('Location: /');
+        $router->redirect('loginGet');
+    }
+
+    public function registerGetAction(Request $request)
+    {
+        return Template::view('auth/sign.html');
+    }
+
+    public function registerPostAction(Request $request)
+    {
+        global $router;
+        try {
+            UserRepository::addUser($request->getParameters());
+        } catch (Exception $e) {
+            $router->redirect('registerGet');
+        }
+        $router->redirect('home');
     }
 }

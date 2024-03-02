@@ -10,7 +10,7 @@ class Request
     public function __construct(string $uri) {
         if (str_contains($uri, '?')) {
             [$this->path, $queryset] = explode('?', $uri);
-            array_map(function($q_parameter) { 
+            array_map(function($q_parameter) {
                     [$key, $value] = explode('=', $q_parameter);
                     $this->parameters[$key] = $value;
                 },

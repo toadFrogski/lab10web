@@ -4,6 +4,7 @@ namespace Core\Routing;
 
 use Core\HttpFoundation\Request;
 use Core\Routing\Route;
+use Exception;
 
 class Router
 {
@@ -24,19 +25,40 @@ class Router
     {
         try {
             $request = new Request($uri);
-            $route = $this->match($request->getPath(), $method);
+            if (empty($route = $this->match($request->getPath(), $method))) {
+                throw new Exception("No route found");
+            }
             [$handlerController, $handlerMethod] = $route->getHandler();
             $controller = new $handlerController;
             echo $controller->{$handlerMethod}($request);
+            die();
         } catch (\Exception $e) {
             header("HTTP/1.0 404 Not Found");
+            die();
         }
+    }
+
+    public function redirect(string $name)
+    {
+        $route = $this->matchName($name);
+        $route = (empty($route)) ? $name : $route->getPath();
+        header("Location:" . $route);
+        die();
     }
 
     private function match(string $path, string $method)
     {
         foreach ($this->routes as $route) {
             if ($route->getPath() == $path && $route->getMethod() == $method) {
+                return $route;
+            }
+        }
+    }
+
+    private function matchName(string $name)
+    {
+        foreach ($this->routes as $route) {
+            if ($route->getName() == $name) {
                 return $route;
             }
         }
