@@ -15,6 +15,19 @@ class UserRepository
         return $dbm->connection->execute_query($query)->fetch_all();
     }
 
+    public static function getUsersWithPrivilegies(array $roles)
+    {
+        $dbm = DatabaseManager::getInstance();
+        $query = "SELECT id, username, email, role FROM user WHERE role in (" . str_repeat("?,", count($roles) - 1) . "?)";
+        return $dbm->connection->execute_query($query, $roles)->fetch_all();
+    }
+
+    public static function getUserById($uid = -1) {
+        $dbm = DatabaseManager::getInstance();
+        $query = "SELECT id, username, email, role FROM user WHERE id = ?";
+        return $dbm->connection->execute_query($query, [$uid]);
+    }
+
     /**
      * @throw Exception
      */

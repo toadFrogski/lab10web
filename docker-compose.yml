@@ -2,7 +2,6 @@ version: "3"
 
 volumes:
   php_sock:
-  static_dir:
 
 services:
   nginx:
@@ -12,7 +11,7 @@ services:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./webapp:/var/www/webapp
       - php_sock:/var/run
-      - static_dir:/var/www/static
+      - ./webapp/app/Resources/static:/var/www/static
 
   webapp:
     restart: unless-stopped
@@ -24,7 +23,6 @@ services:
       - ./docker/webapp/conf.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - ./webapp:/var/www/webapp
       - php_sock:/var/run
-      - static_dir:/var/www/webapp/app/Resources/static
     environment:
       - DB_USER
       - DB_PASSWORD

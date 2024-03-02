@@ -48,4 +48,11 @@ class AuthController
         }
         $router->redirect('home');
     }
+
+    public function logoutAction(Request $request)
+    {
+        global $router;
+        session_destroy();
+        $router->redirect('home');
+    }
 }
