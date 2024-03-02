@@ -6,6 +6,7 @@ use Core\Routing\Router;
 use Src\Controllers\AdminController;
 use Src\Controllers\AuthController;
 use Src\Controllers\HomeController;
+use Src\Controllers\Lab2Controller;
 
 $router = new Router();
 
@@ -29,6 +30,12 @@ $router->add(
     new Route('loginPost', '/login', [AuthController::class, 'loginPostAction'], 'POST'),
     new Route('registerGet', '/register', [AuthController::class, 'registerGetAction'], 'GET'),
     new Route('registerPost', '/register', [AuthController::class, 'registerPostAction'], 'POST'),
+);
+
+// lab2
+$router->add(
+    new Route('recordGet', '/lab2', [Lab2Controller::class, 'getAction'], 'GET'),
+    new Route('recordPost', '/lab2', [Lab2Controller::class, 'postAction'], 'POST')
 );
 
 $router->dispatch($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"]);

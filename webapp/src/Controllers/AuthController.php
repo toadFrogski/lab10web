@@ -4,8 +4,6 @@ namespace Src\Controllers;
 
 use Core\HttpFoundation\Request;
 use Core\Template\Template;
-use Core\DBManager\DatabaseManager;
-use Error;
 use Exception;
 use Src\Repository\UserRepository;
 
@@ -20,7 +18,14 @@ class AuthController
     {
         global $router;
         $data = $request->getParameters();
-        $user = UserRepository::getUserByEmail($data['email']);
+        try {
+            $user = UserRepository::getUserByEmail($data['email']);
+            if ($user == null) {
+                $router->redirect('home');
+            }
+        } catch (Exception $e) {
+            $router->redirect('home');
+        }
         if (hash('sha256', $data['password']) == $user['password']) {
             $_SESSION['role'] = $user['role'];
             $router->redirect('home');

@@ -44,7 +44,15 @@ create table department_event(
 );
 
 create table event_record(
-    er_id int not null AUTO_INCREMENT primary key,
+    id int not null AUTO_INCREMENT primary key,
     client_email VARCHAR(255) not null,
     client_name VARCHAR(255) not null
 );
+
+CREATE TABLE `lab2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT current_timestamp(),
+  `text` text DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci

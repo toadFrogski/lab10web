@@ -1,0 +1,32 @@
+{% extends base.html %} {% block content %}
+<section class="vh-100 d-flex align-items-center justify-content-center">
+  <div class="flex-column">
+    {% foreach($rows as $row): %}
+    <div class="border border-dark container mt-1">
+      <span>{{ $row[3]}}</span>
+      :
+      <span>{{ $row[2]}}</span>
+    </div>
+    {% endforeach; %}
+    <div class="border border-dark container p-2 mt-5">
+      <form action="/lab2" method="post">
+        <input
+          class="form-control mt-2"
+          id="username"
+          name="username"
+          placeholder="username"
+        />
+        <textarea
+          class="form-control mt-2"
+          id="text"
+          name="text"
+          placeholder="comment"
+        ></textarea>
+        <button class="btn btn-outline-dark mt-2 w-100" type="submit">
+          Comment
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -38,13 +38,16 @@ class UserRepository
         $query->close();
     }
 
-    public static function getUserByEmail($email): array
+    /**
+     * @throw Exception
+     */
+    public static function getUserByEmail($email): array | null
     {
         $dbm = DatabaseManager::getInstance();
         try {
             return $dbm->connection->execute_query("SELECT * FROM user WHERE email = ?", [$email])->fetch_array();
         } catch (Exception $e) {
-            return [];
+            throw new Exception('User not found');
         }
     }
 }
