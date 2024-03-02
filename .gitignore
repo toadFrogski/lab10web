@@ -1,2 +1,12 @@
+# IDE additional dirs
 .vscode
+.idea
+
+# DB data
+data
+
+# Docker files
+docker-compose.override.yml
+
 cache
+

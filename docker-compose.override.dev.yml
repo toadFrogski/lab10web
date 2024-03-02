@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  nginx:
+    ports:
+      - "8000:80"
+
+  webapp:
+    environment:
+      - DB_USER=lab
+      - DB_PASSWORD=lab
+      - DB_HOST=db
+      - DB_PORT=3306
+  db:
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=lab
+      - MARIADB_USER=lab
+      - MARIADB_PASSWORD=lab

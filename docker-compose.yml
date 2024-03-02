@@ -1,0 +1,43 @@
+version: "3"
+
+volumes:
+  php_sock:
+  static_dir:
+
+services:
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./webapp:/var/www/webapp
+      - php_sock:/var/run
+      - static_dir:/var/www/static
+
+  webapp:
+    image: lab/webapp
+    restart: unless-stopped
+    build:
+      context: ./webapp
+      dockerfile: ../docker/webapp/Dockerfile
+    volumes:
+      - ./docker/webapp/conf.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./webapp:/var/www/webapp
+      - php_sock:/var/run
+      - static_dir:/var/www/webapp/app/Resources/static
+    environment:
+      - DB_USER
+      - DB_PASSWORD
+      - DB_HOST
+      - DB_PORT
+
+  db:
+    image: mariadb
+    restart: unless-stopped
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_DATABASE
+      - MARIADB_USER
+      - MARIADB_PASSWORD

@@ -1,0 +1,56 @@
+{% extends base.html %}
+
+{% block content %}
+{% include admin/header.html %}
+<section class="mx-auto w-75 mt-5 bg-light">
+    <h2 class="w-100 text-center py-3">События</h2>
+    <div class="d-flex justify-content-around">
+        <p class="w-25 text-center"><b>Событие</b></p>
+        <p class="w-25 text-center"><b>Локация</b></p>
+        <p class="w-25 text-center"><b>Цена</b></p>
+        <p class="w-25 text-center"><b>Связаться</b></p>
+        <p class="w-25 text-center"><b>Редактировать</b></p>
+    </div>
+
+    {% foreach($events as $event): %}
+    <div class="d-flex justify-content-around">
+        <p class="w-25 text-center">{{ $event[0] }}</p>
+        <p class="w-25 text-center">{{ $event[1] }}</p>
+        <p class="w-25 text-center">{{ $event[2] }}</p>
+        <p class="w-25 text-center">{{ $event[3] }}</p>
+        <span class="w-25 text-center">
+            <a href="/event/edit?eid={{ $event[4] }}"><img src="/static/assets/edit.svg"></a>
+            <a name="delete" href="/event/delete?eid={{ $event[4] }}"><img src="/static/assets/delete.svg"></a>
+        </span>
+    </div>
+    {% endforeach; %}
+    <a class="text-center" href="/event/new"><img src="/static/assets/record.svg"></a>
+    <div id="popup" class="w-50 mx-auto modal-banner d-none">
+        <h2 class="text-center">Are you sure?</p>
+        <div class="d-flex justify-content-around">
+            <button id="popup-no" class="btn btn-warning">No</button>
+            <a href="/event/delete?eid={{ $event[4] }}" id="popup-yes" class="btn btn-light">Yes</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('a[name="delete"]').click((event) => {
+        event.preventDefault();
+        $('#popup').removeClass('d-none');
+        $('#popup').addClass('muted');
+    })
+
+    $('#popup-no').click((event) => {
+        $('#popup').addClass('d-none');
+        $('#popup').removeClass('muted');
+    })
+
+    $('#popup-yes').click((event) => {
+        $('#popup').addClass('d-none');
+        $('#popup').removeClass('muted');
+        $.ajax(event.currentTarget.getAttribute('href'));
+    })
+
+</script>
+{% endblock %}
