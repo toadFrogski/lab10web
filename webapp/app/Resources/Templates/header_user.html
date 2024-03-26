@@ -1,8 +1,12 @@
-
-
 <header>
-    <ul>
-        <li><a href="/">Мероприятия</a></li>
-        <li><a href="/login">Войти</a></li>
-    </ul>
+  {% if (!empty($_SESSION['role']) && $_SESSION['role'] == "manager"): %}
+   {% include manager/header.html %} 
+  {% elseif (!empty($_SESSION['role']) && $_SESSION['role'] == "admin"): %}
+  {% include manager/header.html %}
+  {% else: %}
+  <ul>
+    <li><a href="/">Мероприятия</a></li>
+    <li><a href="/login">Войти</a></li>
+  </ul>
+  {% endif; %}
 </header>

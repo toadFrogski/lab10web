@@ -5,7 +5,6 @@
     <h2 class="w-100 text-center py-3">Пользователи</h2>
     <div class="d-flex justify-content-around">
         <p class="w-25 text-center"><b>id</b></p>
-        <p class="w-25 text-center"><b>username</b></p>
         <p class="w-25 text-center"><b>email</b></p>
         <p class="w-25 text-center"><b>role</b></p>
         <p class="w-25 text-center"><b>operation</b></p>
@@ -14,7 +13,6 @@
     {% foreach($users as $user): %}
     <div class="d-flex justify-content-around">
         <p class="w-25 text-center">{{ $user[0] }}</p>
-        <p class="w-25 text-center">{{ $user[1] }}</p>
         <p class="w-25 text-center">{{ $user[2] }}</p>
         <p class="w-25 text-center">{{ $user[3] }}</p>
         <span class="w-25 text-center">

@@ -11,27 +11,26 @@ use Src\Controllers\Lab2Controller;
 
 $router = new Router();
 
-if (isset($_SESSION['role']) && ($_SESSION['role'] == 'manager' || $_SESSION['role'] == 'admin')) {
-    $router->add(
-        new Route('manager', '/manager', [ManagerController::class, 'getAction'], 'GET'),
-        new Route('eventEditGet', '/manager/event/edit', [ManagerController::class, 'eventEditGetAction'], 'GET'),
-        new Route('eventEditPost', '/manager/event/edit', [ManagerController::class, 'eventEditPostAction'], 'POST'),
-        new Route('eventDelete', '/manager/event/delete', [ManagerController::class, 'eventDeleteAction'], 'GET'),
-        new Route('eventNewGet', '/manager/event/new', [ManagerController::class, 'eventNewGetAction'], 'GET'),
-        new Route('eventNewPost', '/manager/event/new', [ManagerController::class, 'eventNewPostAction'], 'POST'),
-    );
-}
+require_once("Src/Middlewares/AuthMiddleware.php");
+$router->use("authMiddleware");
 
-if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-    $router->add(
-        new Route('admin', '/admin', [AdminController::class, 'getAction'], 'GET'),
-        new Route('userAddGet', '/admin/user/add', [AdminController::class, 'userAddGetAction'], 'GET'),
-        new Route('userAddPost', '/admin/user/add', [AdminController::class, 'userAddPostAction'], 'POST'),
-        new Route('userEditGet', '/admin/user/edit', [AdminController::class, 'userEditGetAction'], 'GET'),
-        new Route('userEditPost', '/admin/user/edit', [AdminController::class, 'userEditPostAction'], 'POST'),
-        new Route('userDelete', '/admin/user/delete', [AdminController::class, 'userDeleteAction'], 'GET'),
-    );
-}
+$router->add(
+    new Route('manager', '/manager', [ManagerController::class, 'getAction'], 'GET'),
+    new Route('eventEditGet', '/manager/event/edit', [ManagerController::class, 'eventEditGetAction'], 'GET'),
+    new Route('eventEditPost', '/manager/event/edit', [ManagerController::class, 'eventEditPostAction'], 'POST'),
+    new Route('eventDelete', '/manager/event/delete', [ManagerController::class, 'eventDeleteAction'], 'GET'),
+    new Route('eventNewGet', '/manager/event/new', [ManagerController::class, 'eventNewGetAction'], 'GET'),
+    new Route('eventNewPost', '/manager/event/new', [ManagerController::class, 'eventNewPostAction'], 'POST'),
+);
+
+$router->add(
+    new Route('admin', '/admin', [AdminController::class, 'getAction'], 'GET'),
+    new Route('userAddGet', '/admin/user/add', [AdminController::class, 'userAddGetAction'], 'GET'),
+    new Route('userAddPost', '/admin/user/add', [AdminController::class, 'userAddPostAction'], 'POST'),
+    new Route('userEditGet', '/admin/user/edit', [AdminController::class, 'userEditGetAction'], 'GET'),
+    new Route('userEditPost', '/admin/user/edit', [AdminController::class, 'userEditPostAction'], 'POST'),
+    new Route('userDelete', '/admin/user/delete', [AdminController::class, 'userDeleteAction'], 'GET'),
+);
 
 $router->add(
     new Route('home', '/', [HomeController::class, 'getAction'], 'GET'),

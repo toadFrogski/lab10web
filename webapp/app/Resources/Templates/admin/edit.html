@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<form class="form-control mt-5 w-50 mx-auto pb-5" action="/admin/user/add" method="post" autocomplete="off">
+<form class="form-control mt-5 w-50 mx-auto pb-5" action="/admin/user/edit" method="post" autocomplete="off">
     <section class="mt-3">
         <div class="col-sm mx-5">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="email">
+            <input type="email" class="form-control" name="email" id="email" value="{{ $user['email'] }}">
         </div>
         <div class="col-sm mx-5">
             <label for="password" class="form-label">Password</label>
@@ -14,13 +14,14 @@
         </div>
         <div class="col-sm mx-5">
             <label for="role" class="form-label">Role</label>
-            <select type="number" class="form-control" name="role" id="role">
+            <select type="number" class="form-control" name="role" id="role" value="{{ $user['role'] }}">
                 {% foreach($roles as $role): %}
-                    <option value="{{ $role }}">{{ $role }}</option>
+                    <option {{ $role === $user['role'] ? "selected=1" : ""; }} value="{{ $role }}">{{ $role }}</option>
                 {% endforeach; %}
             </select>
         </div>
     </section>
+    <input type="hidden" name="uid" id="uid" value="{{ $user['id'] }}">
     <button class="w-100 btn btn-primary btn-lg mt-5 mb-3 mx-auto" type="submit">Сохранить</button>
 </form>
 
